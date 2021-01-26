@@ -1,0 +1,26 @@
+version: '3.4'
+
+x-docker-deploy-experiment: &docker-deploy-experiment
+  build: ./publish
+  image: docker-deploy-experiment:1.0.0
+  restart: always
+
+services:
+
+  docker-deploy-experiment-aaa:
+    <<: *docker-deploy-experiment
+    container_name: docker-deploy-experiment-aaa
+    ports:
+      - 7015:80
+    volumes:
+      - "/home/docker/srv/docker-deploy-experiment-aaa/appsettings.json:/app/appsettings.json"
+      - "/home/docker/srv/docker-deploy-experiment-aaa/logs:/app/logs"
+
+  docker-deploy-experiment-bbb:
+    <<: *docker-deploy-experiment
+    container_name: docker-deploy-experiment-bbb
+    ports:
+      - 7017:80
+    volumes:
+      - "/home/docker/srv/docker-deploy-experiment-bbb/appsettings.json:/app/appsettings.json"
+      - "/home/docker/srv/docker-deploy-experiment-bbb/logs:/app/logs"
